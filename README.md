@@ -7,8 +7,7 @@
 ![Seaborn](https://img.shields.io/badge/Seaborn-EDA-purple)
 
 ## Author
-Jatin Pal  
-Application Role: Junior Data Scientist – Trader Behavior Insights  
+Jatin Pal · [Portfolio](https://gilgamish-hub.github.io)
 
 ---
 
@@ -128,28 +127,32 @@ Target:
 
 # Key Insights
 
-### 1️⃣ Higher Trading Activity During Greed
+Measured on the 211,218 trade records (32 accounts, May 2023 to May 2025) that match a day in the Fear & Greed Index. "Closing trades" are the records with a non-zero Closed PnL.
 
-Traders are significantly more active during **Greed sentiment**, suggesting higher confidence in bullish markets.
+| Sentiment | Trades | Days | Trades per day | Median trade size (USD) | Avg PnL per closing trade (USD) | Win rate of closing trades | Buy share |
+|---|---|---|---|---|---|---|---|
+| Extreme Fear | 21,400 | 14 | 1,529 | 766 | 71.0 | 76.2% | 51.1% |
+| Fear | 61,837 | 91 | 680 | 736 | 112.6 | 87.3% | 49.0% |
+| Neutral | 37,686 | 67 | 562 | 548 | 71.2 | 82.4% | 50.3% |
+| Greed | 50,303 | 193 | 261 | 555 | 85.4 | 76.9% | 48.9% |
+| Extreme Greed | 39,992 | 114 | 351 | 500 | 130.2 | 89.2% | 44.9% |
 
-### 2️⃣ Profitability Higher During Greed Markets
+### 1️⃣ Traders are busiest when the market is afraid
+Extreme Fear days average **1,529 trades a day**, almost 6× the 261 of Greed days. Panic brings activity, not caution.
 
-Profit distributions show that **Greed periods produce more positive returns**, while Fear markets show larger loss volatility.
+### 2️⃣ Positions are larger in Fear, not in Greed
+The median trade is **$766 in Extreme Fear and $736 in Fear**, against $555 in Greed and $500 in Extreme Greed.
 
-### 3️⃣ Strategy Shift During Fear Markets
+### 3️⃣ Extreme Greed is the most profitable regime
+Closing trades in Extreme Greed average **$130** with an **89.2% win rate**, the best of any regime. Plain Greed ($85, 76.9%) does worse than Fear ($113, 87.3%), so the relationship is not a simple "greed means profit".
 
-During Fear periods:
+### 4️⃣ Selling rises at the euphoric top
+The share of buys stays near 49–51% in every regime except Extreme Greed, where it drops to **44.9%**. That fits traders taking profit when sentiment peaks.
 
-- Short positions increase
-- Traders adopt more defensive strategies
+### 5️⃣ A few accounts make most of the money
+The **top 3 of 32 accounts earned 44.5%** of all profit made by profitable accounts.
 
-### 4️⃣ Trade Size Increases in Greed Markets
-
-Traders take **larger positions during Greed sentiment**, indicating higher risk appetite.
-
-### 5️⃣ Whale Traders Dominate Profits
-
-A small number of traders generate a **large portion of total profits**, highlighting concentration of trading success.
+**Caveat:** the dataset covers only 32 accounts, and regimes have very different numbers of days (14 Extreme Fear days against 193 Greed days), so these are patterns in this sample, not general market laws.
 
 ---
 
@@ -166,13 +169,15 @@ Jupyter Notebook
 ---
 
 # Project Structure
-trader-behavior-sentiment-analysis
-│
-├── trader_behavior_analysis.ipynb
-├── README.md
-└── dataset_links.txt
 
-
+```text
+trader-behavior-sentiment-analysis/
+├── trader_behavior_analysis.ipynb   # the full analysis
+├── historical_data.csv              # Hyperliquid trade records
+├── fear_greed_index.csv             # daily Bitcoin Fear & Greed Index
+├── dataset_links.txt                # where the data came from
+└── README.md
+```
 
 ---
 
@@ -195,21 +200,13 @@ trader_behavior_analysis.ipynb
 
 # Conclusion
 
-The analysis shows that **market sentiment significantly influences trader behavior**.
+In this data, sentiment does change how traders behave, but not always in the expected direction:
 
-Greed markets encourage:
+- **Fear** brings the most activity and the largest positions.
+- **Extreme Greed** brings the best results and more selling, consistent with profit-taking at the top.
+- **Profits are concentrated** in a handful of accounts.
 
-- Higher trading activity
-- Larger trade sizes
-- Higher profitability
-
-Fear markets lead to:
-
-- Defensive trading strategies
-- Increased short positions
-- Higher loss volatility
-
-Understanding sentiment-driven behavior can help design **better algorithmic trading systems and risk management strategies**.
+A risk system built on this data should watch position size most closely in fearful markets, when traders are most active and trade the largest amounts.
 
 ---
 
